@@ -1,0 +1,4 @@
+import fs from 'node:fs';
+const dir='dist/assets';const files=fs.readdirSync(dir);let js=fs.readFileSync(dir+'/'+files.find(f=>f.endsWith('.js')),'utf8');const css=fs.readFileSync(dir+'/'+files.find(f=>f.endsWith('.css')),'utf8');for(const name of ['party-room','characters'])js=js.replaceAll('assets/'+name+'.png','data:image/png;base64,'+fs.readFileSync('public/assets/'+name+'.png').toString('base64'));
+fs.mkdirSync('release',{recursive:true});
+fs.writeFileSync('release/Birthday_Boyfighter.html',`<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Birthday Boyfighter</title><style>${css}</style></head><body><div id="root"></div><script type="module">${js.replaceAll('</script','<\\/script')}</script></body></html>`);
